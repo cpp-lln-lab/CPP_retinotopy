@@ -1,3 +1,5 @@
+% (C) Copyright 2020 Remi Gau
+
 function data = feedbackScreen(cfg)
     % data = feedbackScreen(cfg, expParameters);
     % gives feedback to the participant

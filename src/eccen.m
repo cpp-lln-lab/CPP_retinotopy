@@ -1,3 +1,6 @@
+% (C) Copyright 2010-2020 Sam Schwarzkopf
+% (C) Copyright 2020 Remi Gau
+
 function eccen(debug, direc, stim, emul)
     % eccen(debug, direc, stim, emul)
     %

@@ -1,3 +1,6 @@
+% (C) Copyright 2010-2020 Sam Schwarzkopf
+% (C) Copyright 2020 Remi Gau
+
 function img = radialCheckerBoard(radius, sector, chsz)
     % img = RadialCheckerBoard(radius, sector, chsz)
     % Returns a bitmap image of a radial checkerboard pattern.

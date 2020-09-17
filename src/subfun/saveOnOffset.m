@@ -1,3 +1,5 @@
+% (C) Copyright 2020 Remi Gau
+
 function [inputStructure, isOffset] = saveOnOffset(isOffset, inputStructure, cfg, rft)
 
     if isOffset

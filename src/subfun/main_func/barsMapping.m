@@ -1,11 +1,11 @@
+% (C) Copyright 2010-2020 Sam Schwarzkopf
+% (C) Copyright 2020 Remi Gau
+
 function barsMapping(cfg)
     % barsMapping(cfg)
     %
     % Runs the drifting bar protocol for mapping population receptive fields.
     % If SaveAps is true it saves the aperture mask for each volume (for pRF).
-
-    % TODO
-    % - apply scaling factor automatically to stimulus
 
     cfg = userInputs(cfg);
     cfg = createFilename(cfg);

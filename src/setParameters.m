@@ -1,3 +1,5 @@
+% (C) Copyright 2020 Remi Gau
+
 function [cfg] = setParameters(cfg)
 
     cfg.verbose = false;
