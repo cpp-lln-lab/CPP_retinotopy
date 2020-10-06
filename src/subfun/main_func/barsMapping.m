@@ -43,10 +43,6 @@ function barsMapping(cfg)
 
     %% Set up
 
-    % TODO
-    % Randomness
-    %     setUpRand;
-
     % targetsTimings is a vector that says when (in seconds from the start of the
     % experiment) a target should be presented.
     cfg.cyclesPerExpmt = length(cfg.conditions);
@@ -116,7 +112,7 @@ function barsMapping(cfg)
                 %
                 if strcmp(cfg.stim, 'dot')
 
-                    thisEvent.speedPix = cfg.dot.speedPix;
+                    thisEvent.speedPix = cfg.dot.speedPixPerFrame;
 
                     if thisEvent.volume ~= thisEvent.previousVolume
 

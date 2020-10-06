@@ -45,10 +45,6 @@ function [data, cfg] = retinotopicMapping(cfg)
 
     %% Set up
 
-    % TODO
-    % Randomness
-    %     setUpRand;
-
     % targetsTimings is a vector that says when (in seconds from the start of the
     % experiment) a target should be presented.
     targetsTimings = createTargetsTiming(cfg);
@@ -104,16 +100,18 @@ function [data, cfg] = retinotopicMapping(cfg)
 
             if strcmp(cfg.stim, 'dot')
 
-                thisEvent.speedPix = cfg.dot.speedPix;
+                thisEvent.speedPix = cfg.dot.speedPixPerFrame;
 
                 if thisEvent.refresh == 1
 
                     thisEvent.direction = rand * 360;
 
                     dots = initDots(cfg, thisEvent);
+                    
                 elseif thisEvent.refresh == 60
 
                     thisEvent.refresh = 0;
+                    
                 end
 
                 [dots] = updateDots(dots, cfg);

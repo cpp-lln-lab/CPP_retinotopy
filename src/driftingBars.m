@@ -10,7 +10,7 @@ function driftingBars(debug, stim, emul)
     %   Emul :  0 = Triggered by scanner, 1 = Trigger by keypress
 
     if nargin < 1 || isempty(debug)
-        debug = 1;
+        debug = 0;
     end
     if nargin < 2  || isempty(stim)
         stim = 'dot'; % ripples dot
@@ -29,7 +29,7 @@ function driftingBars(debug, stim, emul)
     cfg.aperture.type = 'bar';
 
     % Stimulus conditions in each block defined by number
-    cfg.conditions = [45 90 135 270 225 315 90 45 135 270 225 315];
+    cfg.conditions = repmat([90 45 135 270 225 315], 1, 3);
 
     %% Set defaults
 
@@ -37,9 +37,9 @@ function driftingBars(debug, stim, emul)
 
     cfg.debug.do = debug;
 
-    if ~emul
-        cfg.testingDevice = 'mri';
-    else
+    
+    cfg.testingDevice = 'mri';
+    if emul
         cfg.testingDevice = 'pc';
     end
 
