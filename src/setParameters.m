@@ -2,7 +2,7 @@
 
 function [cfg] = setParameters(cfg)
 
-    cfg.verbose = false;
+    cfg.verbose = 1;
 
     cfg.debug.transpWin = true;
     cfg.debug.smallWin = false;
@@ -48,8 +48,6 @@ function [cfg] = setParameters(cfg)
     cfg.stimWidth = 1080;
 
     % will magnify the stim until it reaches that width in pixel
-    %     cfg.stimDestWidth = 500;
-
     cfg.stimDestWidth = 2048;
 
     cfg = setDotsParameters(cfg);

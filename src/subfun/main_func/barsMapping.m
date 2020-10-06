@@ -25,6 +25,7 @@ function barsMapping(cfg)
     thisEvent.frame = 1;
     thisEvent.time = 0;
     thisEvent.volume = 0;
+    thisEvent.dotCenterXPosPix = 0;
 
     ring = [];
 
@@ -115,7 +116,7 @@ function barsMapping(cfg)
                 %
                 if strcmp(cfg.stim, 'dot')
 
-                    thisEvent.speed = cfg.dot.speedPix;
+                    thisEvent.speedPix = cfg.dot.speedPix;
 
                     if thisEvent.volume ~= thisEvent.previousVolume
 

@@ -30,6 +30,7 @@ function [data, cfg] = retinotopicMapping(cfg)
     % current Angle of wedge
     thisEvent.angle = 0;
     thisEvent.time = 0;
+    thisEvent.dotCenterXPosPix = 0;
 
     % current inner radius of ring
     cfg.ring.ringWidthVA = cfg.aperture.width;
@@ -103,7 +104,7 @@ function [data, cfg] = retinotopicMapping(cfg)
 
             if strcmp(cfg.stim, 'dot')
 
-                thisEvent.speed = cfg.dot.speedPix;
+                thisEvent.speedPix = cfg.dot.speedPix;
 
                 if thisEvent.refresh == 1
 
