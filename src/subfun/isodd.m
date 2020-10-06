@@ -1,3 +1,6 @@
+% (C) Copyright 2010-2020 Sam Schwarzkopf
+% (C) Copyright 2020 Remi Gau
+
 function y = isodd(x)
     % y = isodd(x)
     %
@@ -6,3 +9,5 @@ function y = isodd(x)
 
     y = mod(x, 2);
     y = logical(y);
+
+end

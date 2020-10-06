@@ -1,3 +1,7 @@
+% (C) Copyright 2010 Sam Schwarzkopf
+% (C) Copyright 2010 Tim Rohe
+% (C) Copyright 2020 Remi Gau
+
 function [target] = drawTarget(target, events, thisEvent, cfg)
 
     win = cfg.screen.win;

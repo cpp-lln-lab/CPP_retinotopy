@@ -1,3 +1,6 @@
+% (C) Copyright 2010-2020 Sam Schwarzkopf
+% (C) Copyright 2020 Remi Gau
+
 function [data, cfg] = retinotopicMapping(cfg)
     % retinotopicMapping(cfg)
     %
@@ -27,6 +30,7 @@ function [data, cfg] = retinotopicMapping(cfg)
     % current Angle of wedge
     thisEvent.angle = 0;
     thisEvent.time = 0;
+    thisEvent.dotCenterXPosPix = 0;
 
     % current inner radius of ring
     cfg.ring.ringWidthVA = cfg.aperture.width;
@@ -40,10 +44,6 @@ function [data, cfg] = retinotopicMapping(cfg)
     cyclingEnd = cfg.mri.repetitionTime * cfg.volsPerCycle * cfg.cyclesPerExpmt;
 
     %% Set up
-
-    % TODO
-    % Randomness
-    %     setUpRand;
 
     % targetsTimings is a vector that says when (in seconds from the start of the
     % experiment) a target should be presented.
@@ -100,16 +100,18 @@ function [data, cfg] = retinotopicMapping(cfg)
 
             if strcmp(cfg.stim, 'dot')
 
-                thisEvent.speed = cfg.dot.speedPix;
+                thisEvent.speedPix = cfg.dot.speedPixPerFrame;
 
                 if thisEvent.refresh == 1
 
                     thisEvent.direction = rand * 360;
 
                     dots = initDots(cfg, thisEvent);
+                    
                 elseif thisEvent.refresh == 60
 
                     thisEvent.refresh = 0;
+                    
                 end
 
                 [dots] = updateDots(dots, cfg);

@@ -1,11 +1,11 @@
+% (C) Copyright 2010-2020 Sam Schwarzkopf
+% (C) Copyright 2020 Remi Gau
+
 function barsMapping(cfg)
     % barsMapping(cfg)
     %
     % Runs the drifting bar protocol for mapping population receptive fields.
     % If SaveAps is true it saves the aperture mask for each volume (for pRF).
-
-    % TODO
-    % - apply scaling factor automatically to stimulus
 
     cfg = userInputs(cfg);
     cfg = createFilename(cfg);
@@ -25,6 +25,7 @@ function barsMapping(cfg)
     thisEvent.frame = 1;
     thisEvent.time = 0;
     thisEvent.volume = 0;
+    thisEvent.dotCenterXPosPix = 0;
 
     ring = [];
 
@@ -41,10 +42,6 @@ function barsMapping(cfg)
     frameTimes = [];
 
     %% Set up
-
-    % TODO
-    % Randomness
-    %     setUpRand;
 
     % targetsTimings is a vector that says when (in seconds from the start of the
     % experiment) a target should be presented.
@@ -115,7 +112,7 @@ function barsMapping(cfg)
                 %
                 if strcmp(cfg.stim, 'dot')
 
-                    thisEvent.speed = cfg.dot.speedPix;
+                    thisEvent.speedPix = cfg.dot.speedPixPerFrame;
 
                     if thisEvent.volume ~= thisEvent.previousVolume
 
