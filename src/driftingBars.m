@@ -23,13 +23,13 @@ function driftingBars(debug, stim, emul)
 
     %% Experimental Parameters
 
-    cfg.task.name = 'retinotopy drifting bar';
+    cfg.task.name = 'retinotopy drifting bar dot';
 
     % Stimulus type
     cfg.aperture.type = 'bar';
 
     % Stimulus conditions in each block defined by number
-    cfg.conditions = repmat([90 45 135 270 225 315], 1, 3);
+    cfg.conditions = repmat([90 45 135 270 225 315], 1, 2);
 
     %% Set defaults
 

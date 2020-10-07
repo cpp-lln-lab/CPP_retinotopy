@@ -41,17 +41,17 @@ function [cfg] = setParameters(cfg)
     % width of the stimulus to generate (to make things simple choose the height
     % of your screen resolution)
     % when using dots this is the size of the square where the dots are drawn
-    cfg.stimWidth = 600;
+    cfg.stimWidth = 1024;
 
     % will magnify the stim until it reaches that width in pixel
-     cfg.stimDestWidth = 500;
+     cfg.stimDestWidth = 800;
 
     cfg = setDotsParameters(cfg);
 
     cfg = setTargetParameters(cfg);
 
     cfg.fixation.type = 'bestFixation'; % dot bestFixation
-    cfg.fixation.width = .1; % in degrees VA
+    cfg.fixation.width = .2; % in degrees VA
 
     %% Eyetracker parameters
     cfg.eyeTracker.do = false;
@@ -128,8 +128,8 @@ function [cfg, expParameters] = setMonitor(cfg, expParameters)
     cfg.color.black = [0 0 0];
     cfg.color.red = [255 0 0];
     cfg.color.grey = mean([cfg.color.black; cfg.color.white]);
-    cfg.color.background = [50 50 50];
-    cfg.color.foreground = cfg.color.black;
+    cfg.color.background =  [127 127 127];
+    cfg.color.foreground =  [127 127 127];
 
     % Monitor parameters (in cm)
     cfg.screen.monitorWidth = 42;
@@ -190,7 +190,7 @@ function cfg = setTargetParameters(cfg)
     % Duration of a target event in ms
     cfg.target.duration = 0.1;
     % diameter of target circle in degrees VA
-    cfg.target.size = .1;
+    cfg.target.size = .2;
     % rgb color of the target
     cfg.target.color = [255 100 100];
     % is the fixation dot the only possible location of the target?
