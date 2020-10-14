@@ -69,7 +69,7 @@ function generateStimulus(cfg)
     outputDir = fullfile(fileparts(mfilename('fullpath')), '..', '..', 'input');
 
     save(fullfile(outputDir, [outputFile '.mat']), ...
-        'stimulus', 'stimFrames');
+         'stimulus', 'stimFrames');
 
     if pringFig
         for iStim = 1:size(stimulus, 3)

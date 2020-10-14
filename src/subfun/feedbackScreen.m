@@ -21,8 +21,8 @@ function data = feedbackScreen(cfg)
     for iTarget = 1:numel(isTarget)
 
         respWin = all([ ...
-            data(:, 1) >= data(isTarget(iTarget), 1), ...
-            data(:, 1) < (data(isTarget(iTarget), 1) + cfg.respWin)], 2);
+                       data(:, 1) >= data(isTarget(iTarget), 1), ...
+                       data(:, 1) < (data(isTarget(iTarget), 1) + cfg.respWin)], 2);
 
         if any(all([respWin IsResp], 2))
             hit = hit + 1;
@@ -37,13 +37,13 @@ function data = feedbackScreen(cfg)
     Screen('FillRect', cfg.screen.win, cfg.color.background, cfg.screen.winRect);
 
     DrawFormattedText(cfg.screen.win, sprintf(cfg.hit, hit, numel(isTarget)), ...
-        'center', cfg.screen.winRect(4) / 4, [0 255 0]);
+                      'center', cfg.screen.winRect(4) / 4, [0 255 0]);
 
     DrawFormattedText(cfg.screen.win, sprintf(cfg.miss, miss, numel(isTarget)), ...
-        'center', cfg.screen.winRect(4) / 2, [255 0 0]);
+                      'center', cfg.screen.winRect(4) / 2, [255 0 0]);
 
     DrawFormattedText(cfg.screen.win, sprintf(cfg.fA, fa), ...
-        'center', cfg.screen.winRect(4) * 3 / 4, [255 0 0]);
+                      'center', cfg.screen.winRect(4) * 3 / 4, [255 0 0]);
 
     Screen('Flip', cfg.screen.win);
 

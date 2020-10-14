@@ -107,11 +107,11 @@ function [data, cfg] = retinotopicMapping(cfg)
                     thisEvent.direction = rand * 360;
 
                     dots = initDots(cfg, thisEvent);
-                    
+
                 elseif thisEvent.refresh == 60
 
                     thisEvent.refresh = 0;
-                    
+
                 end
 
                 [dots] = updateDots(dots, cfg);
@@ -159,9 +159,9 @@ function [data, cfg] = retinotopicMapping(cfg)
                 sineRotate = cos(thisEvent.time) * cfg.sineRotation;
 
                 Screen('DrawTexture', cfg.screen.win, bgdTextures(thisEvent.frame), ...
-                    cfg.stimRect, ...
-                    CenterRect(cfg.destinationRect, cfg.screen.winRect), ...
-                    bgdAngle + sineRotate);
+                       cfg.stimRect, ...
+                       CenterRect(cfg.destinationRect, cfg.screen.winRect), ...
+                       bgdAngle + sineRotate);
 
             end
 
@@ -209,8 +209,8 @@ function [data, cfg] = retinotopicMapping(cfg)
         createBoldJson(cfg, cfg);
 
         output = bids.util.tsvread( ...
-            fullfile(cfg.dir.outputSubject, cfg.fileName.modality, ...
-            cfg.fileName.events));
+                                   fullfile(cfg.dir.outputSubject, cfg.fileName.modality, ...
+                                            cfg.fileName.events));
 
         disp(output);
 
@@ -259,7 +259,7 @@ function varargout = postInitializationSetup(varargin)
         % dots are displayed on a square
         cfg.dot.matrixWidth = cfg.destinationRect(3);
         cfg.dot.number = round(cfg.dot.density * ...
-            (cfg.dot.matrixWidth / cfg.screen.ppd)^2);
+                               (cfg.dot.matrixWidth / cfg.screen.ppd)^2);
 
     end
 
