@@ -1,3 +1,6 @@
+% (C) Copyright 2010-2020 Sam Schwarzkopf
+% (C) Copyright 2020 Remi Gau
+
 function eccen(debug, direc, stim, emul)
     % eccen(debug, direc, stim, emul)
     %
@@ -45,21 +48,25 @@ function eccen(debug, direc, stim, emul)
         cfg.testingDevice = 'pc';
     end
 
+    defaultStruct = struct('LongName', '', ...
+                           'Units', '');
+
     cfg.extraColumns.ring_inner_rim = struct( ...
-        'length', 1, ...
-        'bids', struct( ...
-        'LongName', 'position of the inner rim of the ring', ...
-        'Units', 'degrees  of visual angles'));
+                                             'length', 1, ...
+                                             'bids', defaultStruct);
+    cfg.extraColumns.ring_inner_rim.bids.LongName = 'position of ring inner rim';
+    cfg.extraColumns.ring_inner_rim.bids.Units = 'degrees  of visual angles';
+
     cfg.extraColumns.ring_outer_rim = struct( ...
-        'length', 1, ...
-        'bids', struct( ...
-        'LongName', 'position of the outer rim of the ring', ...
-        'Units', 'degrees  of visual angles'));
+                                             'length', 1, ...
+                                             'bids', defaultStruct);
+    cfg.extraColumns.ring_outer_rim.bids.LongName = 'position of ring outer rim';
+    cfg.extraColumns.ring_outer_rim.bids.Units = 'degrees  of visual angles';
 
     [cfg] = setParameters(cfg);
 
     %% Run the experiment
-    [data, cfg] = retinotopicMapping(cfg);
+    [~, ~] = retinotopicMapping(cfg);
 
     %     plotResults(data, expParameters);
 

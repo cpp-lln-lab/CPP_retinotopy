@@ -1,3 +1,5 @@
+% (C) Copyright 2020 Remi Gau
+
 function [inputStructure, isOnset] = getOnset(isOnset, inputStructure, cfg, rft)
     % isOnset = getOnset(isOnset, inputStructure, cfg, rft)
     %

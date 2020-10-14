@@ -1,3 +1,6 @@
+% (C) Copyright 2010-2020 Sam Schwarzkopf
+% (C) Copyright 2020 Remi Gau
+
 function img = radialCheckerBoard(radius, sector, chsz)
     % img = RadialCheckerBoard(radius, sector, chsz)
     % Returns a bitmap image of a radial checkerboard pattern.
@@ -26,8 +29,8 @@ function img = radialCheckerBoard(radius, sector, chsz)
 
                 img(y + radius(1) + 1, x + radius(1) + 1) = ...
                     checkerboard( ...
-                    mod(floor(log(r) * chsz(1)), 2) + 1, ...
-                    mod(floor((th + sector(1)) / chsz(2)), 2) + 1);
+                                 mod(floor(log(r) * chsz(1)), 2) + 1, ...
+                                 mod(floor((th + sector(1)) / chsz(2)), 2) + 1);
 
             end
 

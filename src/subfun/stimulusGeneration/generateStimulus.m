@@ -1,3 +1,6 @@
+% (C) Copyright 2010-2020 Sam Schwarzkopf
+% (C) Copyright 2020 Remi Gau
+
 function generateStimulus(cfg)
     % generateStimulus(cfg)
     %
@@ -66,7 +69,7 @@ function generateStimulus(cfg)
     outputDir = fullfile(fileparts(mfilename('fullpath')), '..', '..', 'input');
 
     save(fullfile(outputDir, [outputFile '.mat']), ...
-        'stimulus', 'stimFrames');
+         'stimulus', 'stimFrames');
 
     if pringFig
         for iStim = 1:size(stimulus, 3)

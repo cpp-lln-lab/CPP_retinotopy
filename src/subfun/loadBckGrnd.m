@@ -1,3 +1,6 @@
+% (C) Copyright 2010-2020 Sam Schwarzkopf
+% (C) Copyright 2020 Remi Gau
+
 function bgdTextures = loadBckGrnd(stimulus, win)
     bgdTextures = [];
     if length(size(stimulus)) < 4

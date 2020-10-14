@@ -1,8 +1,10 @@
+% (C) Copyright 2020 Remi Gau
+
 function [cfg] = setParameters(cfg)
 
-    cfg.verbose = false;
+    cfg.verbose = 1;
 
-    cfg.debug.transpWin = true;
+    cfg.debug.transpWin = false;
     cfg.debug.smallWin = false;
 
     cfg.dir.output = fullfile(fileparts(mfilename('fullpath')), '..', 'output');
@@ -22,15 +24,11 @@ function [cfg] = setParameters(cfg)
     [cfg] = setMRI(cfg);
     [cfg] = setKeyboards(cfg);
 
-    % Stimulus cycles per run
-    % I think this is needed to run but is not actually USED !!!!
-    cfg.cyclesPerExpmt = 5;
-
     % Volumes per cycle - sets the "speed" of the mapping -
     % standard is to have VolsPerCycle * TR ~ 1 min
     % e.g expParameters.VolsPerCycle = ceil(60/expParameters.TR);
     % expParameters.VolsPerCycle = ceil(5/expParameters.TR);
-    cfg.volsPerCycle = 10;
+    cfg.volsPerCycle = 12;
 
     %% Stimulus
     cfg.stimFile = fullfile(fileparts(mfilename), 'input', [cfg.stim '.mat']);
@@ -43,19 +41,17 @@ function [cfg] = setParameters(cfg)
     % width of the stimulus to generate (to make things simple choose the height
     % of your screen resolution)
     % when using dots this is the size of the square where the dots are drawn
-    cfg.stimWidth = 1080;
+    cfg.stimWidth = 1024;
 
     % will magnify the stim until it reaches that width in pixel
-    %     cfg.stimDestWidth = 500;
-
-    cfg.stimDestWidth = 2048;
+    cfg.stimDestWidth = 800;
 
     cfg = setDotsParameters(cfg);
 
     cfg = setTargetParameters(cfg);
 
     cfg.fixation.type = 'bestFixation'; % dot bestFixation
-    cfg.fixation.width = .15; % in degrees VA
+    cfg.fixation.width = .2; % in degrees VA
 
     %% Eyetracker parameters
     cfg.eyeTracker.do = false;
@@ -72,31 +68,37 @@ function [cfg] = setParameters(cfg)
     cfg.audio.do = false;
 
     cfg.extraColumns.x_target_pos = struct( ...
-        'length', 1, ...
-        'bids', struct( ...
-        'LongName', 'x position of the the target', ...
-        'Units', 'degrees of visual angles'));
+                                           'length', 1, ...
+                                           'bids', struct( ...
+                                                          'LongName', 'target x position', ...
+                                                          'Units', 'degrees of visual angles'));
 
     cfg.extraColumns.y_target_pos = struct( ...
-        'length', 1, ...
-        'bids', struct( ...
-        'LongName', 'y position of the the target', ...
-        'Units', 'degrees of visual angles'));
+                                           'length', 1, ...
+                                           'bids', struct( ...
+                                                          'LongName', 'target y position', ...
+                                                          'Units', 'degrees of visual angles'));
 
     cfg.extraColumns.target_width = struct( ...
-        'length', 1, ...
-        'bids', struct( ...
-        'LongName', 'diameter of the the target', ...
-        'Units', 'degrees of visual angles'));
+                                           'length', 1, ...
+                                           'bids', struct( ...
+                                                          'LongName', 'target diameter', ...
+                                                          'Units', 'degrees of visual angles'));
+
+    cfg.extraColumns.keyName = struct( ...
+                                      'length', 1, ...
+                                      'bids', struct( ...
+                                                     'LongName', 'key pressed', ...
+                                                     'Units', ''));
 
 end
 
 function [cfg] = setKeyboards(cfg)
     cfg.keyboard.escapeKey = 'ESCAPE';
     cfg.keyboard.responseKey = { ...
-        'r', 'g', 'y', 'b', ...
-        'd', 'n', 'z', 'e', ...
-        't'};
+                                'r', 'g', 'y', 'b', ...
+                                'd', 'n', 'z', 'e', ...
+                                't'};
     cfg.keyboard.keyboard = [];
     cfg.keyboard.responseBox = [];
 
@@ -109,11 +111,13 @@ end
 function [cfg] = setMRI(cfg)
     % letter sent by the trigger to sync stimulation and volume acquisition
     cfg.mri.triggerKey = 't';
-    cfg.mri.triggerNb = 1;
+    cfg.mri.triggerNb = 5;
     cfg.mri.repetitionTime = 1.8;
 
     cfg.bids.MRI.Instructions = 'Press the button everytime a red dot appears!';
     cfg.bids.MRI.TaskDescription = [];
+
+    cfg.pacedByTriggers.do = false;
 
 end
 
@@ -124,8 +128,8 @@ function [cfg, expParameters] = setMonitor(cfg, expParameters)
     cfg.color.black = [0 0 0];
     cfg.color.red = [255 0 0];
     cfg.color.grey = mean([cfg.color.black; cfg.color.white]);
-    cfg.color.background = [127 127 127];
-    cfg.color.foreground = cfg.color.black;
+    cfg.color.background =  [127 127 127];
+    cfg.color.foreground =  [127 127 127];
 
     % Monitor parameters (in cm)
     cfg.screen.monitorWidth = 42;
@@ -137,13 +141,13 @@ function [cfg, expParameters] = setMonitor(cfg, expParameters)
     end
 
     % Resolution [width height refresh_rate]
-    %     cfg.screen.resolution = {1024, 768, []};
+    % cfg.screen.resolution = {1024, 768, []};
 
     % to use to draw the actual field of view of the participant
     % [width height]
     cfg.screen.effectiveFieldOfView = [500 300];
 
-    cfg.text.color = cfg.color.black;
+    cfg.text.color = cfg.color.white;
     cfg.text.font = 'Courier New';
     cfg.text.size = 18;
     cfg.text.style = 1;
@@ -153,7 +157,7 @@ end
 function cfg = setDotsParameters(cfg)
 
     % Speed in visual angles / second
-    cfg.dot.speed = 0.1;
+    cfg.dot.speed = 10;
     % Coherence Level (0-1)
     cfg.dot.coherence = 1;
     % Number of dots per visual angle square.
@@ -161,9 +165,9 @@ function cfg = setDotsParameters(cfg)
     % Dot life time in seconds
     cfg.dot.lifeTime = Inf;
     % proportion of dots killed per frame
-    cfg.dot.proportionKilledPerFrame = 0;
+    cfg.dot.proportionKilledPerFrame = 0.01;
     % Dot Size (dot width) in visual angles.
-    cfg.dot.size = .2;
+    cfg.dot.size = .1;
     cfg.dot.color = cfg.color.white;
 
     cfg.design.motionType = 'translation';
@@ -186,7 +190,7 @@ function cfg = setTargetParameters(cfg)
     % Duration of a target event in ms
     cfg.target.duration = 0.1;
     % diameter of target circle in degrees VA
-    cfg.target.size = .15;
+    cfg.target.size = .2;
     % rgb color of the target
     cfg.target.color = [255 100 100];
     % is the fixation dot the only possible location of the target?

@@ -1,3 +1,5 @@
+% (C) Copyright 2020 Remi Gau
+
 function targetsTimings = createTargetsTiming(cfg)
 
     TR = cfg.mri.repetitionTime;

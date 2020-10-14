@@ -1,11 +1,11 @@
+% (C) Copyright 2010-2020 Sam Schwarzkopf
+% (C) Copyright 2020 Remi Gau
+
 function barsMapping(cfg)
     % barsMapping(cfg)
     %
     % Runs the drifting bar protocol for mapping population receptive fields.
     % If SaveAps is true it saves the aperture mask for each volume (for pRF).
-
-    % TODO
-    % - apply scaling factor automatically to stimulus
 
     cfg = userInputs(cfg);
     cfg = createFilename(cfg);
@@ -25,6 +25,7 @@ function barsMapping(cfg)
     thisEvent.frame = 1;
     thisEvent.time = 0;
     thisEvent.volume = 0;
+    thisEvent.dotCenterXPosPix = 0;
 
     ring = [];
 
@@ -41,10 +42,6 @@ function barsMapping(cfg)
     frameTimes = [];
 
     %% Set up
-
-    % TODO
-    % Randomness
-    %     setUpRand;
 
     % targetsTimings is a vector that says when (in seconds from the start of the
     % experiment) a target should be presented.
@@ -115,7 +112,7 @@ function barsMapping(cfg)
                 %
                 if strcmp(cfg.stim, 'dot')
 
-                    thisEvent.speed = cfg.dot.speedPix;
+                    thisEvent.speedPix = cfg.dot.speedPixPerFrame;
 
                     if thisEvent.volume ~= thisEvent.previousVolume
 
@@ -141,7 +138,7 @@ function barsMapping(cfg)
                     end
 
                     if thisEvent.stim > size(cfg.stimulus, ...
-                            length(size(cfg.stimulus)))
+                                             length(size(cfg.stimulus)))
                         thisEvent.stim = 1;
                     end
 
@@ -170,9 +167,9 @@ function barsMapping(cfg)
 
                     % draw the background texture centered on screen
                     Screen('DrawTexture', cfg.screen.win, bgdTextures(thisEvent.stim), ...
-                        cfg.stimRect, ...
-                        CenterRect(cfg.destinationRect, cfg.screen.winRect), ...
-                        bgdAngle + thisEvent.condition - 90);
+                           cfg.stimRect, ...
+                           CenterRect(cfg.destinationRect, cfg.screen.winRect), ...
+                           bgdAngle + thisEvent.condition - 90);
 
                 end
 
@@ -201,8 +198,8 @@ function barsMapping(cfg)
                 barInfo.bar_width = cfg.aperture.width;
 
                 [barInfo, isOffset] = saveOnOffset( ...
-                    isOffset, ...
-                    barInfo, cfg, rft);
+                                                   isOffset, ...
+                                                   barInfo, cfg, rft);
 
                 [barInfo, isOnset] = getOnset(isOnset, barInfo, cfg, rft);
                 barInfo.experimentStarted = true;
@@ -214,8 +211,8 @@ function barsMapping(cfg)
 
                 target = getOnset(target.isOnset, target, cfg, rft);
                 target = saveOnOffset( ...
-                    target.isOffset, ...
-                    target, cfg, rft);
+                                      target.isOffset, ...
+                                      target, cfg, rft);
                 % -------------------------------------------------------------------------------
 
                 collectAndSaveResponses(cfg, logFile, cfg.experimentStart);
@@ -223,7 +220,7 @@ function barsMapping(cfg)
                 %% Determine current volume
                 thisEvent.previousVolume = thisEvent.volume;
                 thisEvent.volume = floor((thisEvent.time - trialOnset) / ...
-                    cfg.mri.repetitionTime) + 1;
+                                         cfg.mri.repetitionTime) + 1;
 
             end
 
@@ -252,8 +249,8 @@ function barsMapping(cfg)
         createJson(cfg, cfg);
 
         output = bids.util.tsvread( ...
-            fullfile(cfg.dir.outputSubject, cfg.fileName.modality, ...
-            cfg.fileName.events));
+                                   fullfile(cfg.dir.outputSubject, cfg.fileName.modality, ...
+                                            cfg.fileName.events));
 
         disp(output);
 
@@ -302,7 +299,7 @@ function varargout = postInitializationSetup(varargin)
         % dots are displayed on a square
         cfg.dot.matrixWidth = cfg.destinationRect(3);
         cfg.dot.number = round(cfg.dot.density * ...
-            (cfg.dot.matrixWidth / cfg.screen.ppd)^2);
+                               (cfg.dot.matrixWidth / cfg.screen.ppd)^2);
 
     end
 

@@ -1,3 +1,7 @@
+% (C) Copyright 2010 Sam Schwarzkopf
+% (C) Copyright 2010 Tim Rohe
+% (C) Copyright 2020 Remi Gau
+
 function [target] = drawTarget(target, events, thisEvent, cfg)
 
     win = cfg.screen.win;
@@ -47,7 +51,7 @@ function [target] = drawTarget(target, events, thisEvent, cfg)
             [X, Y] = pol2cart(target.rndAngle / 180 * pi, (outerRimPix / 2 + innerRimPix / 2) / 2);
         elseif ~cfg.target.central && strcmp(cfg.aperture.type, 'wedge')
             [X, Y] = pol2cart((90 + thisEvent.angle + cfg.aperture.width / 2) / ...
-                180 * pi, target.rndScale);
+                              180 * pi, target.rndScale);
         end
 
         target.x_target_pos = X;
@@ -59,11 +63,11 @@ function [target] = drawTarget(target, events, thisEvent, cfg)
 
         % Draw event
         Screen('FillOval', win, ...
-            cfg.target.color, ...
-            [X - target_width / 2 ...
-            Y - target_width / 2 ...
-            X + target_width / 2 ...
-            Y + target_width / 2]);
+               cfg.target.color, ...
+               [X - target_width / 2 ...
+                Y - target_width / 2 ...
+                X + target_width / 2 ...
+                Y + target_width / 2]);
 
     else
 
